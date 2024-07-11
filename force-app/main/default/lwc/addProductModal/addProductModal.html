@@ -1,0 +1,364 @@
+<template>
+	
+
+	<template if:true={isModalOpen}>
+		<section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open modal-dialog modal-dialog-centered">
+			<div class="slds-modal__container">
+				<!-- Modal/Popup Header -->
+				<header class="slds-modal__header">
+					<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+					<h2 class="slds-text-heading_medium">Add Products</h2>
+					<h8 class="slds-text-heading_x_small">Price Book: Standard</h8>
+				</header>
+
+				<!-- Modal/Popup Body -->
+				<div class="slds-modal__content slds-p-around_medium">
+					<lightning-input type="search" data-formfield="prodSearch" placeholder="Search Products..." onkeyup={searchHandler}>
+						<span class="material-icons">SearchOutlined</span>
+						</lightning-input>
+					<br/>
+					<h8 class="slds-text-heading_x_small">Show Selected ({selectedValuesCount})</h8>
+
+
+					<table aria-multiselectable="true"
+						class="slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols"
+						role="grid" aria-label="Example advanced table of Opportunities in actionable mode">
+						<thead>
+							<tr class="slds-line-height_reset">
+								<th class="slds-text-align_center slds-cell_action-mode" scope="col"
+									style="width:3.25rem">
+									<!-- <lightning-input onchange={handleAllSelected} type="checkbox" class="slds-text-align_center" data-key="selectAllCheckbox" ></lightning-input> -->
+									<lightning-input  onchange={handleAllSelected} type="checkbox"></lightning-input>
+								</th>
+								<th aria-sort="none" class="slds-is-resizable slds-is-sortable slds-cell_action-mode"
+									scope="col">
+									<a class="slds-th__action slds-text-link_reset" href="#" role="button" tabindex="0">
+										<span class="slds-assistive-text">Sort by: </span>
+										<div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+											<span class="slds-truncate" title="Name">Product Name</span>
+										</div>
+									</a>
+									<div class="slds-resizable">
+										<input type="range" aria-label="Name column width" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-561" max="1000" min="20" tabindex="0" />
+										<span class="slds-resizable__handle">
+                                            <span class="slds-resizable__divider"></span>
+										</span>
+									</div>
+								</th>
+								<th aria-sort="none" class="slds-is-resizable slds-is-sortable slds-cell_action-mode"
+									scope="col">
+									<a class="slds-th__action slds-text-link_reset" href="#" role="button" tabindex="0">
+										<span class="slds-assistive-text">Sort by: </span>
+										<div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+											<span class="slds-truncate" title="Description">Product code</span>
+										</div>
+									</a>
+									<div class="slds-resizable">
+										<input type="range" aria-label="Description column width" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-562" max="1000" min="20" tabindex="0" />
+										<span class="slds-resizable__handle">
+                                            <span class="slds-resizable__divider"></span>
+										</span>
+									</div>
+								</th>
+								<th aria-sort="none" class="slds-is-resizable slds-is-sortable slds-cell_action-mode"
+									scope="col">
+									<a class="slds-th__action slds-text-link_reset" href="#" role="button" tabindex="0">
+										<span class="slds-assistive-text">Sort by: </span>
+										<div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+											<span class="slds-truncate" title="Description">List Price</span>
+										</div>
+									</a>
+									<div class="slds-resizable">
+										<input type="range" aria-label="Description column width" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-563" max="1000" min="20" tabindex="0" />
+										<span class="slds-resizable__handle">
+                                            <span class="slds-resizable__divider"></span>
+										</span>
+									</div>
+								</th>
+								<th aria-sort="none" class="slds-is-resizable slds-is-sortable slds-cell_action-mode"
+									scope="col">
+									<a class="slds-th__action slds-text-link_reset" href="#" role="button" tabindex="0">
+										<span class="slds-assistive-text">Sort by: </span>
+										<div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+											<span class="slds-truncate" title="Description">Product Description</span>
+										</div>
+									</a>
+									<div class="slds-resizable">
+										<input type="range" aria-label="Description column width" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-564" max="1000" min="20" tabindex="0" />
+										<span class="slds-resizable__handle">
+                                            <span class="slds-resizable__divider"></span>
+										</span>
+									</div>
+								</th>
+								<th aria-sort="none" class="slds-is-resizable slds-is-sortable slds-cell_action-mode"
+									scope="col">
+									<a class="slds-th__action slds-text-link_reset" href="#" role="button" tabindex="0">
+										<span class="slds-assistive-text">Sort by: </span>
+										<div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+											<span class="slds-truncate" title="Description">Product Family</span>
+										</div>
+									</a>
+									<div class="slds-resizable">
+										<input type="range" aria-label="Description column width" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-565" max="1000" min="20" tabindex="0" />
+										<span class="slds-resizable__handle">
+                                            <span class="slds-resizable__divider"></span>
+										</span>
+									</div>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<template for:each={finalData} for:item="data">
+
+								<tr key={data.product.Id} aria-selected="false" class="slds-hint-parent">
+									<td class="slds-text-align_right slds-cell_action-mode" role="gridcell">
+										<lightning-input data-name = "allSelected" type="checkbox" data-id={data.product.Id} onchange={handleCheckboxSelect} checked = {data.isChecked} style="margin-right: 10px;" ></lightning-input>
+
+									</td>
+									<td role="gridcell" class="slds-cell_action-mode" scope="row">
+										<div class="slds-truncate" title={data.product.Name}>{data.product.Name}
+										</div>
+									</td>
+									<td role="gridcell" class="slds-cell_action-mode">
+										<div class="slds-truncate" title={data.product.ProductCode}>
+											{data.product.ProductCode}</div>
+									</td>
+									<td role="gridcell" class="slds-cell_action-mode">
+										<div class="slds-truncate" title={data.entries.UnitPrice}>
+											{data.entries.UnitPrice}</div>
+									</td>
+									<td role="gridcell" class="slds-cell_action-mode">
+										<div class="slds-truncate" title={data.product.Description}>
+											{data.product.Description}</div>
+									</td>
+									<td role="gridcell" class="slds-cell_action-mode">
+										<div class="slds-truncate" title={data.product.Family}>
+											{data.product.Family}</div>
+									</td>
+								</tr>
+
+							</template>
+						</tbody>
+					</table>
+				</div>
+
+
+				<!-- Modal/Popup Footer -->
+				<footer class="slds-modal__footer">
+					<!-- <lightning-button label="Cancel" onclick={closeModal}></lightning-button> -->
+
+					<lightning-button class="slds-float_left" variant="brand" label="Cancel" onclick={closeModal}>
+					</lightning-button>
+
+					<lightning-button class="slds-float_right" variant="brand" label="Next" onclick={nextHandler}>
+					</lightning-button>
+				</footer>
+			</div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open"></div>
+	</template>
+	<template if:true={isModal2Open}>
+       <!-- <c-child-modal onopenmodel = {openShowModel} prod-price-book = {productWithPricebook}></c-child-modal> -->
+	   
+	   <section  role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open modal-dialog modal-dialog-centered container">
+			<div class="slds-modal__container ">
+				<!-- Modal/Popup Header -->
+				<header class="slds-modal__header">
+					<h2 class="slds-text-heading_medium">Edit Selected Products</h2>
+					<template if:true={showSpinner}>
+						<lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+					</template>
+				</header>
+
+				<!-- Modal/Popup Body -->
+				<div class="slds-modal__content slds-p-around_medium " >
+					
+					<table aria-multiselectable="true"
+						class="slds-table slds-no-cell-focus slds-table_bordered slds-table_edit slds-table_fixed-layout slds-table_resizable-cols"
+						role="grid" style="width:64 rem"
+						aria-label="Example default inline edit table with cell focused">
+						<thead>
+							<tr class="slds-line-height_reset">
+								<th class="" scope="col" style="width:3.75rem">
+									<div class="slds-truncate slds-assistive-text" title="Errors">Errors</div>
+								</th>
+								
+								<th aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col"
+									style="width:8.75rem">
+									<a class="slds-th__action slds-text-link_reset" href="#" role="button"
+										tabindex="-1">
+										<span class="slds-assistive-text">Sort by: </span>
+										<div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+											<span class="slds-truncate" title="Product" required>Product</span>
+											<span class="slds-icon_container slds-icon-utility-arrowdown">
+												<svg class="slds-icon slds-icon-text-default slds-is-sortable__icon " aria-hidden="true">
+												<use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#arrowdown"></use>
+												</svg>
+											</span>
+										</div>
+									</a>
+									<div class="slds-resizable">
+										<input type="range" aria-label="Name column width" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-246" max="1000" min="20" tabindex="-1" />
+										<span class="slds-resizable__handle">
+											<span class="slds-resizable__divider"></span>
+										</span>
+									</div>
+								</th>
+								<th aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col"
+									style="width:8.75rem">
+									<a class="slds-th__action slds-text-link_reset" href="#" role="button"
+										tabindex="-1">
+										<span class="slds-assistive-text">Sort by: </span>
+										<div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+											<span class="slds-truncate" title="Quantity" required = "true">Quantity</span>
+											<span class="slds-icon_container slds-icon-utility-arrowdown">
+											<svg class="slds-icon slds-icon-text-default slds-is-sortable__icon " aria-hidden="true">
+											<use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#arrowdown"></use>
+											</svg>
+											</span>
+										</div>
+									</a>
+									<div class="slds-resizable">
+										<input type="range" aria-label="Account Name column width" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-247" max="1000" min="20" tabindex="-1" />
+										<span class="slds-resizable__handle">
+											<span class="slds-resizable__divider"></span>
+										</span>
+									</div>
+								</th>
+								<th aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col"
+									style="width:8.75rem">
+									<a class="slds-th__action slds-text-link_reset" href="#" role="button"
+										tabindex="-1">
+										<span class="slds-assistive-text">Sort by: </span>
+										<div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+											<span class="slds-truncate" title="Sales Price">Sales Price</span>
+											<span class="slds-icon_container slds-icon-utility-arrowdown">
+											<svg class="slds-icon slds-icon-text-default slds-is-sortable__icon " aria-hidden="true">
+											<use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#arrowdown"></use>
+											</svg>
+											</span>
+										</div>
+									</a>
+									<div class="slds-resizable">
+										<input type="range" aria-label="Close Date column width" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-248" max="1000" min="20" tabindex="-1" />
+										<span class="slds-resizable__handle">
+											<span class="slds-resizable__divider"></span>
+										</span>
+									</div>
+								</th>
+								<th aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col"
+									style="width:8.75rem">
+									<a class="slds-th__action slds-text-link_reset" href="#" role="button"
+										tabindex="-1">
+										<span class="slds-assistive-text">Sort by: </span>
+										<div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+											<span class="slds-truncate" title="Date">Date</span>
+											<span class="slds-icon_container slds-icon-utility-arrowdown">
+											<svg class="slds-icon slds-icon-text-default slds-is-sortable__icon " aria-hidden="true">
+											<use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#arrowdown"></use>
+											</svg>
+											</span>
+										</div>
+									</a>
+									<div class="slds-resizable">
+										<input type="range" aria-label="Stage column width" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-249" max="1000" min="20" tabindex="-1" />
+										<span class="slds-resizable__handle">
+										<span class="slds-resizable__divider"></span>
+										</span>
+									</div>
+								</th>
+								<th aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col" style="width:8.75rem">
+								<a class="slds-th__action slds-text-link_reset" href="#" role="button" tabindex="-1">
+									<span class="slds-assistive-text">Sort by: </span>
+									<div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+									<span class="slds-truncate" title="Line Description">Line Description</span>
+									<span class="slds-icon_container slds-icon-utility-arrowdown">
+										<svg class="slds-icon slds-icon-text-default slds-is-sortable__icon " aria-hidden="true">
+										<use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#arrowdown"></use>
+										</svg>
+									</span>
+									</div>
+								</a>
+								<div class="slds-resizable">
+									<input type="range" aria-label="Contact column width" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-546" max="1000" min="20" tabindex="-1" />
+									<span class="slds-resizable__handle">
+									<span class="slds-resizable__divider"></span>
+									</span>
+								</div>
+								</th>
+								<th class="" scope="col" style="width:3.25rem">
+									<div class="slds-truncate slds-assistive-text" title="Actions">Actions</div>
+								</th>
+								
+								
+							</tr>
+						</thead>
+						<tbody>
+							<template for:each={productWithPricebook} for:item="data">
+							<tr key={data.product.Id} aria-selected="false" class="slds-hint-parent ">
+								
+								<td class="slds-cell-edit slds-cell-error" role="gridcell">
+									<button id="error-01" class="slds-button slds-button_icon slds-button_icon-error slds-m-horizontal_xxx-small slds-hidden" aria-hidden="true" tabindex="-1" title="Item 1 has errors">
+										<svg class="slds-button__icon" aria-hidden="true">
+										<use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#error"></use>
+										</svg>
+										<span class="slds-assistive-text">Item 1 has errors</span>
+									</button>
+									<span class="slds-row-number slds-text-body_small slds-text-color_weak"></span>
+								</td>
+								
+								<td role="gridcell" class="slds-cell_action-mode" scope="row">
+										<div class="slds-truncate " data-id = {data.product.Id} title={data.product.Name}>{data.product.Name}
+										</div>
+									</td>
+								<th class="slds-cell-edit slds-p-around_medium " scope="row" tabindex="0">
+									
+										<lightning-input name="quantity" class="validate" type= "text" data-id={data.product.Id}  data-formfield = "quantity" placeholder="Enter Quantity" ></lightning-input>
+									
+									
+								</th>
+								<td role="gridcell" class="slds-cell_action-mode" scope="row">
+									
+										<div class="slds-truncate slds-text-align_center " data-id = {data.product.Id} title={data.entries.UnitPrice}>{data.entries.UnitPrice}
+										</div>
+										
+									</td>
+								<th class="slds-cell-edit" scope="row" tabindex="0">
+									<span class="slds-grid slds-grid_align-spread">
+									<lightning-input name="date" class="validate" type="date" data-id = {data.product.Id}  ></lightning-input>
+										
+									</span>
+								</th>
+								<th class="slds-cell-edit" scope="row" tabindex="0">
+									<span class="slds-grid slds-grid_align-spread">
+									<lightning-input name="linedes" class="validate" data-id = {data.product.Id} type= "text" data-form = "lineDescription"  ></lightning-input>
+										
+									</span>
+								</th>
+							
+								<td class="slds-cell-edit" role="gridcell">
+									<lightning-icon icon-name='utility:delete' variant='error' size='small' onclick = {deleteHandler}></lightning-icon>
+								</td>
+								
+							</tr>
+							</template>
+						</tbody>
+					</table>
+					
+				</div>
+
+				<!-- Modal/Popup Footer -->
+				<footer class="slds-modal__footer">
+					<lightning-button class="slds-float_left" variant="brand" label="Back" onclick={openPreviousModel}>
+					</lightning-button>
+					<lightning-button class="slds-float_right" variant="brand" label="Save" onclick={saveHandler}>
+					</lightning-button>
+				</footer>
+			</div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>
