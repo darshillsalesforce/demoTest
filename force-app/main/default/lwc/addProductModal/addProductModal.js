@@ -138,6 +138,7 @@ export default class AddProductModal extends LightningElement {
 
     handleCheckboxSelect(event)
     {
+        this.selectedValues = [];
         console.log('handle check', event.target.checked);
         console.log('Id ',event.currentTarget.dataset.id);
         let unselectedRec = event.currentTarget.dataset.id;
@@ -149,15 +150,50 @@ export default class AddProductModal extends LightningElement {
             {
                 if(this.Values == this.finalData[i].product.Id)
                 {
-                    console.log('value check ',  this.finalData[i].isChecked )
+                    console.log('value check 1',  this.finalData[i].isChecked )
                     this.finalData[i].isChecked = true;
-                    console.log('value affter check ',  this.finalData[i].isChecked )
+                    console.log('value affter check 1',  this.finalData[i].isChecked )
                 }
                 
             }
-            this.selectedValues.push( this.Values);
+            for(let i=0; i<this.finalData.length; i++)
+            {
+                if(this.finalData[i].isChecked)
+                {
+                    
+                    this.selectedValues.push( this.finalData[i].product.Id);
+                }
+            }
+            
 
         } 
+        else if(!event.target.checked)
+        {
+            try {
+                for(let i=0; i<this.finalData.length; i++)
+                {
+                    if(this.Values == this.finalData[i].product.Id)
+                    {
+                        console.log('value check 2',  this.finalData[i].isChecked )
+                        this.finalData[i].isChecked = false;
+                        console.log('value affter check 2',  this.finalData[i].isChecked )
+                    }
+                    
+                }
+
+               for(let i=0; i<this.finalData.length; i++)
+                {
+                    if(this.finalData[i].isChecked)
+                    {
+                        
+                        this.selectedValues.push( this.finalData[i].product.Id);
+                    }
+                    console.log('after uncheck selected values ', this.selectedValues)
+                }
+                } catch (err) {
+                    console.log('error handle uncheck', err)
+                }
+        }
         else if(this.selectAll && (!event.target.checked))
         {
             console.log('row unselected ', event.target.checked)
@@ -169,14 +205,14 @@ export default class AddProductModal extends LightningElement {
                 {
                     if(unselectedRec == this.finalData[i].product.Id)
                     {
-                        console.log('value check 2',  this.finalData[i].isChecked )
+                        console.log('value check 3',  this.finalData[i].isChecked )
                         this.finalData[i].isChecked = false;
-                        console.log('value affter check remove',  this.finalData[i].isChecked )
+                        console.log('value affter check remove 3',  this.finalData[i].isChecked )
                     }
                     
                 }
             } catch (err) {
-                //error message
+                console.log('error row unselected', err)
             }
             console.log('selected length 1: '+this.selectedValues.length);
         }
@@ -185,7 +221,7 @@ export default class AddProductModal extends LightningElement {
                 this.index = this.selectedValues.indexOf( this.Values);
                 this.selectedValues.splice(this.index, 1);
             } catch (err) {
-                //error message
+                console.log('error handle chackbox', err)
             }
         }
          console.log('selected checkbox are : '+JSON.stringify(this.selectedValues));
@@ -256,6 +292,7 @@ export default class AddProductModal extends LightningElement {
 
     recordHandler()
     {
+        this.productWithPricebook = [];
         console.log('next handler', this.selectedValues.length)
         for(let k =0; k<this.selectedValues.length; k++)
         {
@@ -264,11 +301,8 @@ export default class AddProductModal extends LightningElement {
                 if( this.selectedValues[k] == this.finalData[i].product.Id)
                 {
                     console.log('selected value  ', this.finalData[i]);
-                    if(!this.productWithPricebook.includes(this.finalData[i]))
-                    {
-                        this.productWithPricebook.push(this.finalData[i]);
-                    }
-                    
+                    this.finalData[i].isChecked = false;
+                    this.productWithPricebook.push(this.finalData[i]);
                 }
             }
         }
@@ -360,15 +394,35 @@ export default class AddProductModal extends LightningElement {
         this.isModalOpen = true;
         console.log('final data after back ', JSON.stringify(this.finalData));
     }
-    deleteHandler()
-    {
-        console.log('delete')
-    }
 
-    // openShowModel()
-    // {
-    //     this.isModalOpen = true;
-    // }
+    deleteHandler(event)
+    {
+        this.showSpinner =true;
+        console.log('delete ', event.currentTarget.dataset.id)
+        let removeProductId = event.currentTarget.dataset.id;
+        for(let i=0; i<this.selectedValues.length; i++)
+        {
+            if(removeProductId == this.selectedValues[i])
+            {
+                console.log('Id Matched', this.selectedValues[i])
+                this.index = this.selectedValues.indexOf( removeProductId);
+                this.selectedValues.splice(this.index, 1);
+            }
+        }
+        // for(let i=0; i<this.finalData.length(); i++)
+        // {
+        //     if(removeProductId == this.finalData[i].product.Id)
+        //     {
+        //         this.finalData[i].isChecked = false;
+        //     }
+            
+        // }
+        console.log('after deleted ', JSON.stringify(this.selectedValues));
+        this.recordHandler();
+        this.isModal2Open = false;
+        this.isModal2Open = true;
+        this.showSpinner =false;
+    }
 
     closeModal()
     {
