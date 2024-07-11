@@ -65,6 +65,13 @@ export default class AddProductModal extends LightningElement {
         }
     }
 
+      onclickUrl(event) {
+        let productId = event.currentTarget.dataset.id;
+        let url = `/lightning/r/Product2/${productId}/view`;
+        window.open(url, '_blank');
+    }
+        
+
     parseStringToObject(str) {
         // Extract the part within parentheses
         const dataString = str.match(/\(([^)]+)\)/)[1];
@@ -301,9 +308,10 @@ export default class AddProductModal extends LightningElement {
                 if( this.selectedValues[k] == this.finalData[i].product.Id)
                 {
                     console.log('selected value  ', this.finalData[i]);
-                    this.finalData[i].isChecked = false;
+                    //this.finalData[i].isChecked = true;
                     this.productWithPricebook.push(this.finalData[i]);
                 }
+               
             }
         }
        console.log('show product ', this.productWithPricebook) ;

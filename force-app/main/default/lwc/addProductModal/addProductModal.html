@@ -119,7 +119,8 @@
 
 									</td>
 									<td role="gridcell" class="slds-cell_action-mode" scope="row">
-										<div class="slds-truncate" title={data.product.Name}>{data.product.Name}
+										<div class="slds-truncate" title={data.product.Name}>
+											<a href="javascript:void(0);" data-id={data.product.Id} onclick={onclickUrl}>{data.product.Name}</a>
 										</div>
 									</td>
 									<td role="gridcell" class="slds-cell_action-mode">
